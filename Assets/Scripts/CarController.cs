@@ -50,8 +50,8 @@ public class CarController : MonoBehaviour
     private float wheelRadius;
 
     [Header("Input")]
-    private float moveInput = 0;
-    private float steerInput = 0;
+    private float moveInput;
+    private float steerInput;
 
     [Header("Car Settings")]
     [SerializeField]
@@ -139,32 +139,50 @@ public class CarController : MonoBehaviour
         {
             Acceleration();
             Deceleration();
+            Braking();
             Turn();
             SidewaysDrag();
         }
     }
 
+    private void ApplyMovementForce(Vector3 force)
+    {
+        rb.AddForceAtPosition(force, accelerationPoint.position, ForceMode.Acceleration);
+    }
+
     private void Acceleration()
     {
-        if (currentCarLocalVelocity.z < maxSpeed)
+        if (Mathf.Abs(currentCarLocalVelocity.z) < maxSpeed)
         {
-            rb.AddForceAtPosition(
-                acceleration * moveInput * rb.transform.forward,
-                accelerationPoint.position,
-                ForceMode.Acceleration
-            );
+            ApplyMovementForce(acceleration * moveInput * rb.transform.forward);
         }
     }
 
     private void Deceleration()
     {
-        rb.AddForceAtPosition(
-            (Input.GetKey(KeyCode.Space) ? brakingDeceleration : deceleration)
-                * Mathf.Abs(carVelocityRatio)
-                * -rb.transform.forward,
-            accelerationPoint.position,
-            ForceMode.Acceleration
-        );
+        if (Mathf.Abs(currentCarLocalVelocity.z) < maxSpeed)
+        {
+            ApplyMovementForce(deceleration * Mathf.Abs(carVelocityRatio) * -rb.transform.forward);
+        }
+    }
+
+    private void Braking()
+    {
+        if (Input.GetKey(KeyCode.Space) && currentCarLocalVelocity.z != 0)
+        {
+            if (currentCarLocalVelocity.z < 0)
+            {
+                ApplyMovementForce(
+                    brakingDeceleration * Mathf.Abs(carVelocityRatio) * rb.transform.forward
+                );
+            }
+            else if (currentCarLocalVelocity.z > 0)
+            {
+                ApplyMovementForce(
+                    brakingDeceleration * Mathf.Abs(carVelocityRatio) * -rb.transform.forward
+                );
+            }
+        }
     }
 
     private void Turn()
@@ -181,10 +199,10 @@ public class CarController : MonoBehaviour
 
     private void SidewaysDrag()
     {
-        float currenteSidewaysSpeed = currentCarLocalVelocity.x;
+        float currentSidewaysSpeed = currentCarLocalVelocity.x;
 
         float dragMagnitude =
-            -currenteSidewaysSpeed
+            -currentSidewaysSpeed
             * (Input.GetKey(KeyCode.Space) ? brakingDragCoefficient : dragCoefficient);
 
         Vector3 dragForce = transform.right * dragMagnitude;
@@ -197,7 +215,7 @@ public class CarController : MonoBehaviour
     private void Visuals()
     {
         TireVisuals();
-        Vfx();
+        TireVfx();
     }
 
     private void TireVisuals()
@@ -209,12 +227,7 @@ public class CarController : MonoBehaviour
             if (i < 2)
             {
                 tires[i]
-                    .transform
-                    .Rotate(
-                        Vector3.right,
-                        tireRotSpeed * carVelocityRatio * Time.deltaTime,
-                        Space.Self
-                    );
+                    .transform.Rotate(Vector3.right, tireRotSpeed * carVelocityRatio, Space.Self);
 
                 frontTiresParents[i].transform.localEulerAngles = new Vector3(
                     frontTiresParents[i].transform.localEulerAngles.x,
@@ -225,13 +238,16 @@ public class CarController : MonoBehaviour
             else
             {
                 tires[i]
-                    .transform
-                    .Rotate(Vector3.right, tireRotSpeed * moveInput * Time.deltaTime, Space.Self);
+                    .transform.Rotate(
+                        Vector3.right,
+                        tireRotSpeed * moveInput * Time.deltaTime,
+                        Space.Self
+                    );
             }
         }
     }
 
-    private void Vfx()
+    private void TireVfx()
     {
         if (
             isGrounded
@@ -292,7 +308,7 @@ public class CarController : MonoBehaviour
     }
     #endregion
 
-    #region Car Status Check
+    #region Status Check
     private void GroundCheck()
     {
         int tempGroundedWheels = 0;
