@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
 
     [Header("Car Settings")]
     [SerializeField]
-    private float acceleration = 25f;
+    internal float acceleration = 25f;
 
     [SerializeField]
     private float maxSpeed = 100f;
