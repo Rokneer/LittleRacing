@@ -3,7 +3,27 @@ guid: fa02a2cfd9e9aa74294a53b283c1011d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: carTire
+    second: {fileID: 2100000, guid: 6ee85d725f8920c43bcc36588fa2bcd7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: glass
+    second: {fileID: 2100000, guid: 18ece9eaf254df94699a694bb2e88276, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grey
+    second: {fileID: 2100000, guid: 4104e740833a8ec4c8b6d5a7c0f047d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pylon
+    second: {fileID: 2100000, guid: 8b2492c8f85bf654f95038998c8f4601, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

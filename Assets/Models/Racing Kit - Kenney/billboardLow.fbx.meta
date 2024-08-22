@@ -3,7 +3,27 @@ guid: d39fb8c921ceef14bb00a72f6daa92b0
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bark
+    second: {fileID: 2100000, guid: 40a65f5d2a8af8f40b28b66e70183c67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grey
+    second: {fileID: 2100000, guid: 4104e740833a8ec4c8b6d5a7c0f047d3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: road
+    second: {fileID: 2100000, guid: 58f3f315913403449a44fe1fba787dbd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tankco
+    second: {fileID: 2100000, guid: 38d55b6cfddc89e49916386cf038ea10, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

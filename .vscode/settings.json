@@ -52,5 +52,5 @@
     "Temp/": true
   },
   "dotnet.defaultSolution": "LittleRacing.sln",
-  "workbench.colorTheme": "eppz!"
+  "workbench.colorTheme": "Dracula At Night"
 }
