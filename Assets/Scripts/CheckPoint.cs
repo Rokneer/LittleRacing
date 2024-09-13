@@ -1,22 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CheckPoint : MonoBehaviour
 {
     public static CheckPoint Instance { get; private set; }
 
-    public Transform[] checkpoints; 
+    public Transform[] checkpoints;
     private int currentCheckpoint = 0;
     private int lapsCompleted = 0;
     public TextMeshProUGUI LapText;
 
     private void Awake()
     {
-        
         if (Instance == null)
         {
             Instance = this;
@@ -34,15 +29,11 @@ public class CheckPoint : MonoBehaviour
 
     public void PlayerHitCheckpoint(int checkpointIndex)
     {
-        
         if (checkpointIndex == currentCheckpoint)
         {
-            
             currentCheckpoint++;
             checkpoints[checkpointIndex].gameObject.SetActive(false);
-            
 
-            
             if (currentCheckpoint >= checkpoints.Length)
             {
                 Debug.Log("Vuelta completada!");
@@ -65,11 +56,9 @@ public class CheckPoint : MonoBehaviour
 
     private void ResetCheckPoint()
     {
-        foreach (Transform checkpoint in checkpoints )
+        foreach (Transform checkpoint in checkpoints)
         {
             checkpoint.gameObject.SetActive(true);
         }
     }
 }
-  
-

@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 
 public class rainLight : MonoBehaviour
 {
-    private float duration = 2f;  // Duración del cambio de color e intensidad
+    private float duration = 2f;  // Duraciï¿½n del cambio de color e intensidad
     public Light dlight;
     public ParticleSystem particle;
     public ParticleSystem particle2;
@@ -62,7 +61,7 @@ public class rainLight : MonoBehaviour
             yield return null;  // Espera hasta el siguiente frame
         }
 
-        // Asegúrate de que el color y la intensidad se establezcan al valor final
+        // Asegï¿½rate de que el color y la intensidad se establezcan al valor final
         dlight.color = targetColor;
         dlight.intensity = targetIntensity;
 

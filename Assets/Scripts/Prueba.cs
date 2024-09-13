@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Prueba : MonoBehaviour
+public class CheckPointTrigger : MonoBehaviour
 {
     public int CheckPointIndex;
-    
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
