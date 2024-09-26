@@ -9,6 +9,7 @@ public class CheckPoint : MonoBehaviour
     private int currentCheckpoint = 0;
     private int lapsCompleted = 0;
     public TextMeshProUGUI LapText;
+    public TextMeshProUGUI CheckPointText;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class CheckPoint : MonoBehaviour
     private void Start()
     {
         UpdateLapUI();
+        UpdateCheckPoint();
     }
 
     public void PlayerHitCheckpoint(int checkpointIndex)
@@ -33,6 +35,7 @@ public class CheckPoint : MonoBehaviour
         {
             currentCheckpoint++;
             checkpoints[checkpointIndex].gameObject.SetActive(false);
+            UpdateCheckPoint();
 
             if (currentCheckpoint >= checkpoints.Length)
             {
@@ -49,9 +52,16 @@ public class CheckPoint : MonoBehaviour
         }
     }
 
+   
+    private void UpdateCheckPoint()
+    {
+        CheckPointText.text = $"{currentCheckpoint}/7";
+    } 
+    
     private void UpdateLapUI()
     {
         LapText.text = $"{lapsCompleted}/3";
+        
     }
 
     private void ResetCheckPoint()
